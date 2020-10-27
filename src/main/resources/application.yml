@@ -1,0 +1,5 @@
+server:
+  port: 8081
+spring:  application:    name: data-storage-service
+    description: Data Storage Service for storing data of polls-app
+    baseDirectory: D:\PROJETCS\anonymous-polls\uploads
