@@ -32,7 +32,7 @@ public class FileSystemFormStorageStrategy implements FormStorageService {
 
 	@Override
 	public Form save(Form form) {
-		String uid = form.getUID();
+		String uid = form.getId();
 		File file = getFile(uid);
 		
 		file.setWritable(true);
