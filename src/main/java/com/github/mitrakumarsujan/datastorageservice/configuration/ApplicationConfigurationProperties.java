@@ -36,6 +36,6 @@ public class ApplicationConfigurationProperties {
 	}
 
 	public String getUploadBaseDirectory() {
-		return getProperty("baseDirectory");
+		return getProperty("upload-directory");
 	}
 }

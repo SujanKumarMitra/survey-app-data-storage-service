@@ -7,8 +7,9 @@ import com.github.mitrakumarsujan.formmodel.model.form.Form;
  * @since 2020-10-27
  */
 public interface FormStorageService {
-	
+
 	Form save(Form form);
-	
-	Form find(String formUID);
+
+	Form find(String formId);
+
 }
