@@ -29,7 +29,7 @@ public class FileSystemFormStorageStrategy implements FormStorageService {
 	private FormFileManager fileManager;
 	
 	@Autowired
-	@Qualifier("csv-response-manager")
+	@Qualifier("csv-response-storage")
 	private FileSystemFormResponseStorageStrategy responseStorageStrategy;
 
 	private static Logger LOGGER = LoggerFactory.getLogger(FileSystemFormStorageStrategy.class);

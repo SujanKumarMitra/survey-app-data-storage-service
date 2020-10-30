@@ -30,7 +30,7 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 	private FormTemplateCsvHeaderMapper headerMapper;
 	
 	@Autowired
-	@Qualifier("csv-form-storage")
+	@Qualifier("csv-response-manager")
 	private FormResponseFileManager fileManager;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CsvFileSystemFormResponseStorageStrategy.class);
@@ -59,7 +59,7 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 		String[] headers = headerMapper.apply(template);
 
 		StringJoiner joiner = new StringJoiner(", ");
-		joiner.add("TimeStamp");
+		joiner.add("Timestamp");
 		for (String header : headers) {
 			joiner.add(header);
 		}

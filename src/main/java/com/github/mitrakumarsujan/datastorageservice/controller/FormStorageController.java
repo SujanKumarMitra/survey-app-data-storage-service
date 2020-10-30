@@ -20,14 +20,14 @@ import com.github.mitrakumarsujan.formmodel.model.response.success.RestSuccessRe
  * @since 2020-10-27
  */
 @RestController
-@RequestMapping("/v1/store")
+@RequestMapping("/v1/form")
 public class FormStorageController {
 
 	@Autowired
-	FormStorageService service;
+	private FormStorageService service;
 
 	@Autowired
-	RestSuccessResponseBuilderFactory builderFactory;
+	private RestSuccessResponseBuilderFactory builderFactory;
 
 	@PostMapping
 	public ResponseEntity<RestSuccessResponse<Form>> saveForm(@RequestBody Form form) {
@@ -35,10 +35,10 @@ public class FormStorageController {
 		return getResponseEntity(savedForm);
 	}
 
-	@GetMapping("/{formUID}")
+	@GetMapping("/{formId}")
 	public ResponseEntity<RestSuccessResponse<Form>> getForm
-	(@PathVariable("formUID") String formUID) {
-		Form form = service.find(formUID);
+	(@PathVariable("formId") String formId) {
+		Form form = service.find(formId);
 		return getResponseEntity(form);
 	}
 
