@@ -27,27 +27,27 @@ public class FormStorageController {
 	private FormStorageService service;
 
 	@Autowired
-	private RestSuccessResponseBuilderFactory builderFactory;
+	private RestSuccessResponseBuilderFactory responseBuilderFactory;
 
 	@PostMapping
 	public ResponseEntity<RestSuccessResponse<Form>> saveForm(@RequestBody Form form) {
 		Form savedForm = service.save(form);
-		return getResponseEntity(savedForm);
+
+		return responseBuilderFactory	.getSingleDataBuilder(Form.class)
+										.withData(savedForm)
+										.withStatus(HttpStatus.CREATED)
+										.build()
+										.toResponseEntity();
 	}
 
 	@GetMapping("/{formId}")
-	public ResponseEntity<RestSuccessResponse<Form>> getForm
-	(@PathVariable("formId") String formId) {
+	public ResponseEntity<RestSuccessResponse<Form>> getForm(@PathVariable("formId") String formId) {
 		Form form = service.find(formId);
-		return getResponseEntity(form);
-	}
-
-	private ResponseEntity<RestSuccessResponse<Form>> getResponseEntity(Form savedForm) {
-		return builderFactory	.getSingleDataBuilder(Form.class)
-								.withStatus(HttpStatus.FOUND)
-								.withData(savedForm)
-								.build()
-								.toResponseEntity();
+		return responseBuilderFactory	.getSingleDataBuilder(Form.class)
+										.withData(form)
+										.withStatus(HttpStatus.FOUND)
+										.build()
+										.toResponseEntity();
 	}
 
 }

@@ -2,7 +2,6 @@ package com.github.mitrakumarsujan.datastorageservice.service.file.csv;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -13,14 +12,14 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
  * @since 2020-10-29
  */
 @Component
-public class FormResponseCsvRowMapper implements Function<List<Response>, CharSequence> {
+public class FormResponseCsvRowMapper implements Function<List<Response>, String[]> {
 
 	@Override
-	public CharSequence apply(List<Response> responses) {
+	public String[] apply(List<Response> responses) {
 
 		return responses.stream()
 						.map(Response::getAnswer)
-						.collect(Collectors.joining(", "));
+						.toArray(String[]::new);
 	}
 
 }

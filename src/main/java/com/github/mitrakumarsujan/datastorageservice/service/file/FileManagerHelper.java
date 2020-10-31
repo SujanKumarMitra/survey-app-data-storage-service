@@ -45,7 +45,7 @@ public class FileManagerHelper {
 			file.getParentFile().mkdirs();
 			boolean created = file.createNewFile();
 			if (created) {
-				LOGGER.info("file {} created successfully..", file.getName());
+				LOGGER.info("file '{}' created successfully..", file.getName());
 				file.setReadable(true);
 				file.setWritable(true);
 			}

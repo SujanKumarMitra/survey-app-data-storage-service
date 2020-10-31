@@ -15,7 +15,5 @@ public interface FormResponseStorageService {
 
 	FormResponse save(FormResponse response);
 
-	Iterable<FormResponse> saveAll(Iterable<FormResponse> response);
-
 	List<FormResponse> getAll(String formId);
 }
