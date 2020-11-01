@@ -1,13 +1,13 @@
 package com.github.mitrakumarsujan.datastorageservice.service.file.csv;
 
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.joining;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +53,7 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 		File file = fileManager.getFile(response.getFormId());
 		fileWriter.appendData(data, file);
 		
-		LOGGER.info("response written to file '{}'", file.getName());
+		LOGGER.info("response written to file '{}'", file.getAbsolutePath());
 		
 		return response;
 	}
@@ -78,8 +78,9 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 		File file = fileManager.getFile(formId);
 		String data = responseList	.stream()
 									.map(this::prepareWritableData)
-									.collect(Collectors.joining(NEW_LINE));
+									.collect(joining(NEW_LINE));
 		fileWriter.appendData(data, file);
+		LOGGER.info("responses written to file '{}'", file.getAbsolutePath());
 	}
 
 

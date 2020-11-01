@@ -2,7 +2,6 @@ package com.github.mitrakumarsujan.datastorageservice.service.file;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +42,7 @@ public class FileSystemFormStorageStrategy implements FormStorageService {
 
 		try {
 			mapper.writeValue(file, form);
-			LOGGER.info("Form with uid '{}' serialized to '{}'", id, file.getAbsolutePath());
+			LOGGER.info("Form with id '{}' serialized to '{}'", id, file.getAbsolutePath());
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
@@ -58,9 +57,9 @@ public class FileSystemFormStorageStrategy implements FormStorageService {
 		file.setReadable(true);
 
 		Form form = null;
-		try (Scanner scanner = new Scanner(file)) {
+		try {
 			form = mapper.readValue(file, Form.class);
-			LOGGER.info("Form with uid '{}' deserialized from '{}'", formId, file.getAbsolutePath());
+			LOGGER.info("Form with id '{}' deserialized from '{}'", formId, file.getAbsolutePath());
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
