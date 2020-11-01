@@ -43,12 +43,12 @@ public class FileSystemFormStorageStrategy implements FormStorageService {
 
 		try {
 			mapper.writeValue(file, form);
-			LOGGER.info("Form with uid {} serialized to {}", id, file.getAbsolutePath());
+			LOGGER.info("Form with uid '{}' serialized to '{}'", id, file.getAbsolutePath());
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
 		
-		responseStorageStrategy.initFormStorage(form);
+		responseStorageStrategy.initFormResponseStorage(form);
 		return form;
 	}
 
@@ -60,7 +60,7 @@ public class FileSystemFormStorageStrategy implements FormStorageService {
 		Form form = null;
 		try (Scanner scanner = new Scanner(file)) {
 			form = mapper.readValue(file, Form.class);
-			LOGGER.info("Form with uid {} deserialized from {}", formId, file.getAbsolutePath());
+			LOGGER.info("Form with uid '{}' deserialized from '{}'", formId, file.getAbsolutePath());
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
 		}

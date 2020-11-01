@@ -45,13 +45,13 @@ public class FileManagerHelper {
 			file.getParentFile().mkdirs();
 			boolean created = file.createNewFile();
 			if (created) {
-				LOGGER.info("file '{}' created successfully..", file.getName());
+				LOGGER.info("file '{}' created successfully..", file.getAbsolutePath());
 				file.setReadable(true);
 				file.setWritable(true);
 			}
 			return created;
 		} catch (IOException e) {
-			LOGGER.error("failed to create file '{}'. Reason:: {}", file.getName(), e.getMessage());
+			LOGGER.error("failed to create file '{}'. Reason:: {}", file.getAbsolutePath(), e.getMessage());
 			return false;
 		}
 	}

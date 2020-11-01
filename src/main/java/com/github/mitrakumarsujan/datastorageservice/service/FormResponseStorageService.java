@@ -11,7 +11,7 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
  */
 public interface FormResponseStorageService {
 
-	void initFormStorage(Form form);
+	void initFormResponseStorage(Form form);
 
 	FormResponse save(FormResponse response);
 	

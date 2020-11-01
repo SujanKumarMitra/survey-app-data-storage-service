@@ -25,7 +25,7 @@ public class FileWriterServiceImpl implements FileWriterService {
 			writer.println();
 			writer.flush();
 		} catch (IOException e) {
-			LOGGER.error("Writing failed in '{}'. Reason:: {}", file.getName(), e.getMessage());
+			LOGGER.error("Writing failed in '{}'. Reason:: {}", file.getAbsolutePath(), e.getMessage());
 		}
 	}
 

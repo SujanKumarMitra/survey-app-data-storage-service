@@ -53,7 +53,7 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 		File file = fileManager.getFile(response.getFormId());
 		fileWriter.appendData(data, file);
 		
-		LOGGER.info("response written to file {}", file.getName());
+		LOGGER.info("response written to file '{}'", file.getName());
 		
 		return response;
 	}
@@ -97,7 +97,7 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 	}
 
 	@Override
-	public void initFormStorage(Form form) {
+	public void initFormResponseStorage(Form form) {
 		FormTemplate template = form.getTemplate();
 		String[] headers = headerMapper.apply(template);
 
@@ -112,7 +112,7 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 		File file = fileManager.getFile(formId);
 
 		fileWriter.appendData(joiner.toString(), file);
-		LOGGER.info("response storage initated for formId {}", formId);
+		LOGGER.info("response storage initated for formId '{}'", formId);
 	}
 
 }
