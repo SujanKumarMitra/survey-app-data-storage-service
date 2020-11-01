@@ -1,9 +1,13 @@
 package com.github.mitrakumarsujan.datastorageservice.service.file.csv;
 
+import static java.util.stream.Collectors.groupingBy;
+
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +43,8 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 	private FileWriterService fileWriter;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CsvFileSystemFormResponseStorageStrategy.class);
+	
+	private static final String NEW_LINE = System.lineSeparator();
 
 	@Override
 	public FormResponse save(FormResponse response) {
@@ -46,14 +52,36 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 
 		File file = fileManager.getFile(response.getFormId());
 		fileWriter.appendData(data, file);
+		
+		LOGGER.info("response written to file {}", file.getName());
+		
 		return response;
 	}
-	
+
+	@Override
+	public List<FormResponse> saveAll(List<FormResponse> responses) {
+		Map<String, List<FormResponse>> responseMap = responses	
+													  	.stream()
+													  	.collect(groupingBy(FormResponse::getFormId));
+
+		responseMap.forEach(this::writeResponseList);
+		return responses;
+	}
+
 	@Override
 	public List<FormResponse> getAll(String formId) {
 		// TODO
 		return null;
 	}
+
+	private void writeResponseList(String formId, List<FormResponse> responseList) {
+		File file = fileManager.getFile(formId);
+		String data = responseList	.stream()
+									.map(this::prepareWritableData)
+									.collect(Collectors.joining(NEW_LINE));
+		fileWriter.appendData(data, file);
+	}
+
 
 	private CharSequence prepareWritableData(FormResponse response) {
 		LocalDateTime timestamp = response.getTimestamp();
@@ -67,7 +95,6 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 		}
 		return joiner.toString();
 	}
-
 
 	@Override
 	public void initFormStorage(Form form) {

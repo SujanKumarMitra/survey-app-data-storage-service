@@ -14,6 +14,8 @@ public interface FormResponseStorageService {
 	void initFormStorage(Form form);
 
 	FormResponse save(FormResponse response);
+	
+	List<FormResponse> saveAll(List<FormResponse> responses);
 
 	List<FormResponse> getAll(String formId);
 }

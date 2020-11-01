@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.mitrakumarsujan.datastorageservice.service.FormStorageService;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
-import com.github.mitrakumarsujan.formmodel.model.response.RestSuccessResponse;
-import com.github.mitrakumarsujan.formmodel.model.response.success.RestSuccessResponseBuilderFactory;
+import com.github.mitrakumarsujan.formmodel.model.restresponse.RestSuccessResponse;
+import com.github.mitrakumarsujan.formmodel.model.restresponse.success.RestSuccessResponseBuilderFactory;
 
 /**
  * @author Sujan Kumar Mitra
