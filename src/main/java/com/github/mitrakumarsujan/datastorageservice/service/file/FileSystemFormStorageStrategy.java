@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mitrakumarsujan.datastorageservice.service.FormStorageService;
+import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 
 /**
@@ -52,8 +53,11 @@ public class FileSystemFormStorageStrategy implements FormStorageService {
 	}
 
 	@Override
-	public Form find(String formId) {
+	public Form find(String formId) throws FormNotFoundException {
 		File file = fileManager.getFile(formId);
+		if(!file.exists()) {
+			throw new FormNotFoundException(formId);
+		}
 		file.setReadable(true);
 
 		Form form = null;
