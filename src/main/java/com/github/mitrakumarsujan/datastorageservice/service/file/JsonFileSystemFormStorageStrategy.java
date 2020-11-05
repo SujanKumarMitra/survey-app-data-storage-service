@@ -19,7 +19,7 @@ import com.github.mitrakumarsujan.formmodel.model.form.Form;
  * @since 2020-10-27
  */
 @Component
-public class FileSystemFormStorageStrategy implements FormStorageService {
+public class JsonFileSystemFormStorageStrategy implements FormStorageService {
 
 	@Autowired
 	private ObjectMapper mapper;
@@ -32,7 +32,7 @@ public class FileSystemFormStorageStrategy implements FormStorageService {
 	@Qualifier("csv-response-storage")
 	private FileSystemFormResponseStorageStrategy responseStorageStrategy;
 
-	private static Logger LOGGER = LoggerFactory.getLogger(FileSystemFormStorageStrategy.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JsonFileSystemFormStorageStrategy.class);
 
 	@Override
 	public Form save(Form form) {
