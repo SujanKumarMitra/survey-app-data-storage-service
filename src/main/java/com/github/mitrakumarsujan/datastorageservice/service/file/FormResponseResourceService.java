@@ -2,7 +2,7 @@ package com.github.mitrakumarsujan.datastorageservice.service.file;
 
 import org.springframework.core.io.Resource;
 
-import com.github.mitrakumarsujan.formmodel.model.api.FormResponseDownloadRequest;
+import com.github.mitrakumarsujan.formmodel.model.dto.FormResponseDownloadRequest;
 
 /**
  * @author skmitra

@@ -2,12 +2,19 @@ package com.github.mitrakumarsujan.datastorageservice.service.file.csv;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toCollection;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +24,12 @@ import org.springframework.stereotype.Service;
 import com.github.mitrakumarsujan.datastorageservice.service.file.FileSystemFormResponseStorageStrategy;
 import com.github.mitrakumarsujan.datastorageservice.service.file.FileWriterService;
 import com.github.mitrakumarsujan.datastorageservice.service.file.FormResponseFileManager;
+import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.model.form.FormTemplate;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
+import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponseCollection;
+import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponseCollectionImpl;
 
 /**
  * @author Sujan Kumar Mitra
@@ -104,4 +114,42 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 		return data	.stream()
 					.collect(joining(","));
 	}
+
+	@Override
+	public FormResponseCollection getResponses(String formId) {
+		File file = fileManager.getFile(formId);
+
+		CSVFormat format = CSVFormat.RFC4180
+									.withFirstRecordAsHeader()
+									.withNullString("")
+									.withTrim();
+		try (CSVParser parser = format.parse(new FileReader(file))) {
+			FormResponseCollectionImpl responseCollection = new FormResponseCollectionImpl();
+			responseCollection.setFormId(formId);
+
+			List<String> headers = parser.getHeaderNames();
+			responseCollection.setQuestions(headers);
+
+			List<List<String>> responses = parser	.getRecords()
+													.stream()
+													.sequential()
+													.map(record -> parseRecord(record, headers))
+													.collect(toCollection(LinkedList::new));
+
+			responseCollection.setResponses(responses);
+			return responseCollection;
+		} catch (IOException e) {
+			throw new FormNotFoundException(formId);
+		}
+	}
+
+	private List<String> parseRecord(CSVRecord record, List<String> headers) {
+		List<String> response = new LinkedList<>();
+		for (String header : headers) {
+			String cell = record.get(header);
+			response.add(cell);
+		}
+		return response;
+	}
+
 }

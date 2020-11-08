@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
+import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponseCollection;
 
 /**
  * @author Sujan Kumar Mitra
@@ -16,5 +17,7 @@ public interface FormResponseStorageService {
 	FormResponse save(FormResponse response);
 	
 	List<FormResponse> saveAll(List<FormResponse> responses);
+	
+	FormResponseCollection getResponses(String formId);
 
 }
