@@ -1,13 +1,9 @@
 package com.github.mitrakumarsujan.datastorageservice.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.mitrakumarsujan.datastorageservice.service.FormResponseStorageService;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.RestSuccessResponse;
-import com.github.mitrakumarsujan.formmodel.model.restresponse.success.RestSuccessResponseBuilder;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.success.RestSuccessResponseBuilderFactory;
 
 /**
@@ -44,17 +39,6 @@ public class FormResponseStorageController {
 										.build()
 										.toResponseEntity();
 
-	}
-
-	@GetMapping("/{formId}")
-	public ResponseEntity<RestSuccessResponse<List<FormResponse>>> saveForm(@PathVariable("formId") String formId) {
-		List<FormResponse> responses = responseStorageService.getAll(formId);
-		RestSuccessResponseBuilder<List<FormResponse>> builder = responseBuilderFactory.getSingleDataBuilder();
-
-		return builder	.withData(responses)
-						.withStatus(HttpStatus.FOUND)
-						.build()
-						.toResponseEntity();
 	}
 
 }

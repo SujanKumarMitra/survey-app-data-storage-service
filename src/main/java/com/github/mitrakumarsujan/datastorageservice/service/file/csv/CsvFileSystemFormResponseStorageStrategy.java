@@ -66,12 +66,6 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 		return responses;
 	}
 
-	@Override
-	public List<FormResponse> getAll(String formId) {
-		// TODO
-		return null;
-	}
-
 	private void writeResponseList(String formId, List<FormResponse> responseList) {
 		File file = fileManager.getFile(formId);
 		String data = responseList	.stream()

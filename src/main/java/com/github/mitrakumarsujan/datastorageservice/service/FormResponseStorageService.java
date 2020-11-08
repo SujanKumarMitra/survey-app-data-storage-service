@@ -17,5 +17,4 @@ public interface FormResponseStorageService {
 	
 	List<FormResponse> saveAll(List<FormResponse> responses);
 
-	List<FormResponse> getAll(String formId);
 }
