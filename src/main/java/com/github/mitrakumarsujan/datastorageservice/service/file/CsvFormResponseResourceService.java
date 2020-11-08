@@ -8,8 +8,8 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import com.github.mitrakumarsujan.datastorageservice.exception.IncorrectCredentialsException;
 import com.github.mitrakumarsujan.datastorageservice.service.FormStorageService;
+import com.github.mitrakumarsujan.formmodel.exception.IncorrectCredentialsException;
 import com.github.mitrakumarsujan.formmodel.model.api.FormResponseDownloadRequest;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 

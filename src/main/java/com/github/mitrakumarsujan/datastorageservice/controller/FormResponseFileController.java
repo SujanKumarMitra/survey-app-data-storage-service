@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.mitrakumarsujan.datastorageservice.exception.IncorrectCredentialsException;
 import com.github.mitrakumarsujan.datastorageservice.service.file.FormResponseResourceService;
+import com.github.mitrakumarsujan.formmodel.exception.IncorrectCredentialsException;
 import com.github.mitrakumarsujan.formmodel.model.api.FormResponseDownloadRequest;
 import com.github.mitrakumarsujan.formmodel.model.api.FormResponseDownloadRequestImpl;
 

@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.github.mitrakumarsujan.datastorageservice.exception.IncorrectCredentialsException;
+import com.github.mitrakumarsujan.formmodel.exception.IncorrectCredentialsException;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.RestErrorResponse;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorResponseBuilderFactory;
 
