@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
+import com.github.mitrakumarsujan.datastorageservice.exception.IncorrectCredentialsException;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.RestErrorResponse;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorResponseBuilderFactory;
 
@@ -15,16 +15,17 @@ import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorRe
  * @since 2020-11-02
  */
 @RestControllerAdvice
-public class FormStorageControllerAdvice {
+public class IncorrectCredentialsExceptionHandler {
 
 	@Autowired
 	private RestErrorResponseBuilderFactory builderFactory;
 
-	@ExceptionHandler(FormNotFoundException.class)
-	public ResponseEntity<RestErrorResponse> fun(FormNotFoundException exception) {
+	@ExceptionHandler(IncorrectCredentialsException.class)
+	public ResponseEntity<RestErrorResponse> handle(IncorrectCredentialsException exception) {
 		return builderFactory	.getErrorBuilder()
 								.withStatus(HttpStatus.NOT_FOUND)
 								.withErrors(exception.getErrors())
+								.withMessage(exception.getMessage())
 								.build()
 								.toResponseEntity();
 	}
