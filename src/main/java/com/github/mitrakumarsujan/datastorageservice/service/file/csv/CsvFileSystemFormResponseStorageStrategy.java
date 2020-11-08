@@ -7,7 +7,6 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +42,7 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 	private FileWriterService fileWriter;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CsvFileSystemFormResponseStorageStrategy.class);
-	
+
 	private static final String NEW_LINE = System.lineSeparator();
 
 	@Override
@@ -52,17 +51,16 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 
 		File file = fileManager.getFile(response.getFormId());
 		fileWriter.appendData(data, file);
-		
+
 		LOGGER.info("response written to file '{}'", file.getAbsolutePath());
-		
+
 		return response;
 	}
 
 	@Override
 	public List<FormResponse> saveAll(List<FormResponse> responses) {
-		Map<String, List<FormResponse>> responseMap = responses	
-													  	.stream()
-													  	.collect(groupingBy(FormResponse::getFormId));
+		Map<String, List<FormResponse>> responseMap = responses	.stream()
+																.collect(groupingBy(FormResponse::getFormId));
 
 		responseMap.forEach(this::writeResponseList);
 		return responses;
@@ -83,37 +81,33 @@ public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormR
 		LOGGER.info("responses written to file '{}'", file.getAbsolutePath());
 	}
 
-
 	private CharSequence prepareWritableData(FormResponse response) {
 		LocalDateTime timestamp = response.getTimestamp();
-		String[] responses = rowMapper.apply(response.getResponses());
+		List<String> responses = rowMapper.apply(response.getResponses());
+		responses.add(0, timestamp.toString());
 
-		StringJoiner joiner = new StringJoiner(",");
-		joiner.add(timestamp.toString());
-
-		for (String res : responses) {
-			joiner.add(res);
-		}
-		return joiner.toString();
+		return getWritableData(responses);
 	}
 
 	@Override
 	public void initFormResponseStorage(Form form) {
 		FormTemplate template = form.getTemplate();
-		String[] headers = headerMapper.apply(template);
+		List<String> headers = headerMapper.apply(template);
 
-		StringJoiner joiner = new StringJoiner(",");
-		joiner.add("Timestamp");
-		for (String header : headers) {
-			joiner.add(header);
-		}
+		headers.add(0, "Timestamp");
+
+		CharSequence data = getWritableData(headers);
 
 		String formId = form.getId();
 		fileManager.createFile(formId);
 		File file = fileManager.getFile(formId);
 
-		fileWriter.appendData(joiner.toString(), file);
+		fileWriter.appendData(data, file);
 		LOGGER.info("response storage initated for formId '{}'", formId);
 	}
 
+	private CharSequence getWritableData(List<String> data) {
+		return data	.stream()
+					.collect(joining(","));
+	}
 }

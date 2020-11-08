@@ -1,5 +1,8 @@
 package com.github.mitrakumarsujan.datastorageservice.service.file.csv;
 
+import static java.util.stream.Collectors.toCollection;
+
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -12,14 +15,14 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
  * @since 2020-10-29
  */
 @Component
-public class FormResponseCsvRowMapper implements Function<List<Response>, String[]> {
+public class FormResponseCsvRowMapper implements Function<List<Response>, List<String>> {
 
 	@Override
-	public String[] apply(List<Response> responses) {
+	public List<String> apply(List<Response> responses) {
 
 		return responses.stream()
 						.map(Response::getAnswer)
-						.toArray(String[]::new);
+						.collect(toCollection(LinkedList::new));
 	}
 
 }
