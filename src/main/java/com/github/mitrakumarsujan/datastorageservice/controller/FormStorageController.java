@@ -3,6 +3,7 @@ package com.github.mitrakumarsujan.datastorageservice.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import com.github.mitrakumarsujan.formmodel.model.restresponse.success.RestSucce
  */
 @RestController
 @RequestMapping("/v1/form")
+@CrossOrigin
 public class FormStorageController {
 
 	@Autowired
