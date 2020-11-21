@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.github.mitrakumarsujan.formmodel.exception.IncorrectCredentialsException;
+import com.github.mitrakumarsujan.formmodel.exception.BadCredentialsException;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.RestErrorResponse;
 import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorResponseBuilderFactory;
 
@@ -15,13 +15,13 @@ import com.github.mitrakumarsujan.formmodel.model.restresponse.error.RestErrorRe
  * @since 2020-11-02
  */
 @RestControllerAdvice
-public class IncorrectCredentialsExceptionHandler {
+public class BadCredentialsExceptionHandler {
 
 	@Autowired
 	private RestErrorResponseBuilderFactory builderFactory;
 
-	@ExceptionHandler(IncorrectCredentialsException.class)
-	public ResponseEntity<RestErrorResponse> handle(IncorrectCredentialsException exception) {
+	@ExceptionHandler(BadCredentialsException.class)
+	public ResponseEntity<RestErrorResponse> handle(BadCredentialsException exception) {
 		return builderFactory	.getErrorBuilder()
 								.withStatus(HttpStatus.NOT_FOUND)
 								.withErrors(exception.getErrors())

@@ -1,6 +1,7 @@
 package com.github.mitrakumarsujan.datastorageservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,6 +27,7 @@ import com.github.mitrakumarsujan.formmodel.model.restresponse.success.RestSucce
 public class FormStorageController {
 
 	@Autowired
+	@Qualifier("json-form-storage-service")
 	private FormStorageService service;
 
 	@Autowired

@@ -20,7 +20,7 @@ import com.github.mitrakumarsujan.formmodel.model.form.Form;
  * @author Sujan Kumar Mitra
  * @since 2020-10-27
  */
-@Component
+@Component("json-form-storage-service")
 public class JsonFileSystemFormStorageStrategy implements FormStorageService {
 
 	@Autowired

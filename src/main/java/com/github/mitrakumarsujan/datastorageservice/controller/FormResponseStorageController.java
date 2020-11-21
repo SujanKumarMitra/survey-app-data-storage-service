@@ -1,16 +1,13 @@
 package com.github.mitrakumarsujan.datastorageservice.controller;
 
+import com.github.mitrakumarsujan.datastorageservice.service.authentication.access.FormResponseStorageAccessService;
+import com.github.mitrakumarsujan.datastorageservice.service.authentication.FormResponseAccessRequestBuilder;
+import com.github.mitrakumarsujan.formmodel.model.dto.FormResponseAccessRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.github.mitrakumarsujan.datastorageservice.service.FormResponseStorageService;
 import com.github.mitrakumarsujan.formmodel.model.dto.FormResponseCollectionDto;
@@ -29,41 +26,53 @@ import com.github.mitrakumarsujan.formmodel.model.restresponse.success.RestSucce
 @CrossOrigin
 public class FormResponseStorageController {
 
-	@Autowired
-	@Qualifier("csv-response-storage")
-	private FormResponseStorageService responseStorageService;
+    @Autowired
+    @Qualifier("csv-response-storage")
+    private FormResponseStorageService responseStorageService;
 
-	@Autowired
-	private RestSuccessResponseBuilderFactory responseBuilderFactory;
+    @Autowired
+    private FormResponseStorageAccessService storageAccessService;
 
-	@Autowired
-	private FormResponseCollectionDtoConverter dtoConverter;
+    @Autowired
+    private RestSuccessResponseBuilderFactory responseBuilderFactory;
 
-	@PostMapping
-	public ResponseEntity<RestSuccessResponse<FormResponse>> saveForm(
-			@RequestBody FormResponse formResponse) {
-		FormResponse savedForm = responseStorageService.save(formResponse);
+    @Autowired
+    private FormResponseCollectionDtoConverter dtoConverter;
 
-		return responseBuilderFactory	.getSingleDataBuilder(FormResponse.class)
-										.withData(savedForm)
-										.withStatus(HttpStatus.CREATED)
-										.build()
-										.toResponseEntity();
+    @PostMapping
+    public ResponseEntity<RestSuccessResponse<FormResponse>> saveForm(
+            @RequestBody FormResponse formResponse) {
 
-	}
+        FormResponse savedForm = responseStorageService.save(formResponse);
+        return responseBuilderFactory.getSingleDataBuilder(FormResponse.class)
+                                     .withData(savedForm)
+                                     .withStatus(HttpStatus.CREATED)
+                                     .build()
+                                     .toResponseEntity();
 
-	@GetMapping("/{formId}")
-	public ResponseEntity<RestSuccessResponse<FormResponseCollectionDto>> getResponses(
-			@PathVariable("formId") String formId) {
+    }
 
-		FormResponseCollection responses = responseStorageService.getResponses(formId);
-		FormResponseCollectionDto responsesDto = dtoConverter.convert(responses);
-		
-		return responseBuilderFactory	.getSingleDataBuilder(FormResponseCollectionDto.class)
-										.withStatus(HttpStatus.FOUND)
-										.withData(responsesDto)
-										.build()
-										.toResponseEntity();
-	}
+    @GetMapping("/{formId}")
+    public ResponseEntity<RestSuccessResponse<FormResponseCollectionDto>> getResponses(
+            @PathVariable("formId") String formId,
+            @RequestParam(name = "formKey", required = false) String paramKey,
+            @RequestHeader(name = "formKey", required = false) String headerKey) {
+
+        FormResponseAccessRequest request =
+                new FormResponseAccessRequestBuilder()
+                        .withFormId(formId)
+                        .withFormKeyIfNotNull(paramKey)
+                        .withFormKeyIfNotNull(headerKey)
+                        .build();
+
+        FormResponseCollection responses = storageAccessService.getResponses(request);
+        FormResponseCollectionDto responsesDto = dtoConverter.convert(responses);
+
+        return responseBuilderFactory.getSingleDataBuilder(FormResponseCollectionDto.class)
+                                     .withStatus(HttpStatus.FOUND)
+                                     .withData(responsesDto)
+                                     .build()
+                                     .toResponseEntity();
+    }
 
 }

@@ -9,8 +9,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import com.github.mitrakumarsujan.datastorageservice.service.FormStorageService;
-import com.github.mitrakumarsujan.formmodel.exception.IncorrectCredentialsException;
-import com.github.mitrakumarsujan.formmodel.model.dto.FormResponseDownloadRequest;
+import com.github.mitrakumarsujan.formmodel.exception.BadCredentialsException;
+import com.github.mitrakumarsujan.formmodel.model.dto.FormResponseAccessRequest;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 
 /**
@@ -28,20 +28,10 @@ public class CsvFormResponseResourceService implements FormResponseResourceServi
 	private FormResponseFileManager fileManager;
 
 	@Override
-	public Resource getFileResource(FormResponseDownloadRequest request) {
-		String formId = request.getFormId();
-		Form form = formStorageService.find(formId);
-		if (!matches(request, form)) {
-			throw new IncorrectCredentialsException("key not matching");
-		}
+	public Resource getFileResource(String formId) {
 		File file = fileManager.getFile(formId);
 		return new FileSystemResource(file);
 	}
 
-	private boolean matches(FormResponseDownloadRequest request, Form form) {
-		String suppliedKey = request.getFormKey();
-		String actualKey = form.getKey();
-		return actualKey.contentEquals(suppliedKey);
-	}
 
 }

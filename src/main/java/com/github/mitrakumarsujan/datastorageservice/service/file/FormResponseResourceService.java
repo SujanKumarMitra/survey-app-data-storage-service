@@ -2,7 +2,7 @@ package com.github.mitrakumarsujan.datastorageservice.service.file;
 
 import org.springframework.core.io.Resource;
 
-import com.github.mitrakumarsujan.formmodel.model.dto.FormResponseDownloadRequest;
+import com.github.mitrakumarsujan.formmodel.model.dto.FormResponseAccessRequest;
 
 /**
  * @author skmitra
@@ -10,5 +10,5 @@ import com.github.mitrakumarsujan.formmodel.model.dto.FormResponseDownloadReques
  */
 public interface FormResponseResourceService {
 	
-	Resource getFileResource(FormResponseDownloadRequest request);
+	Resource getFileResource(String formId);
 }
