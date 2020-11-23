@@ -61,15 +61,15 @@ public class FormResponseStorageController {
         FormResponseAccessRequest request =
                 new FormResponseAccessRequestBuilder()
                         .withFormId(formId)
-                        .withFormKeyIfNotNull(paramKey)
-                        .withFormKeyIfNotNull(headerKey)
+                        .withFormKeyIfNotPresentAndNotNull(headerKey)
+                        .withFormKeyIfNotPresentAndNotNull(paramKey)
                         .build();
 
         FormResponseCollection responses = storageAccessService.getResponses(request);
         FormResponseCollectionDto responsesDto = dtoConverter.convert(responses);
 
         return responseBuilderFactory.getSingleDataBuilder(FormResponseCollectionDto.class)
-                                     .withStatus(HttpStatus.FOUND)
+                                     .withStatus(HttpStatus.OK)
                                      .withData(responsesDto)
                                      .build()
                                      .toResponseEntity();

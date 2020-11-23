@@ -39,8 +39,8 @@ public class FormResponseDownloadController {
         FormResponseAccessRequest request =
                 new FormResponseAccessRequestBuilder()
                         .withFormId(formId)
-                        .withFormKeyIfNotNull(paramKey)
-                        .withFormKeyIfNotNull(headerKey)
+                        .withFormKeyIfNotPresentAndNotNull(paramKey)
+                        .withFormKeyIfNotPresentAndNotNull(headerKey)
                         .build();
         Resource resource = resourceAccessService.getFormResource(request);
 

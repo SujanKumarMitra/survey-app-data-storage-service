@@ -22,8 +22,8 @@ public class FormResponseAccessRequestBuilder {
         return this;
     }
 
-    public FormResponseAccessRequestBuilder withFormKeyIfNotNull(String formKey) {
-        if (formKey != null)
+    public FormResponseAccessRequestBuilder withFormKeyIfNotPresentAndNotNull(String formKey) {
+        if (this.formKey == null && formKey != null)
             this.formKey = formKey;
         return this;
     }

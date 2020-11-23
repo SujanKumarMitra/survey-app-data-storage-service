@@ -23,7 +23,7 @@ public class BadCredentialsExceptionHandler {
 	@ExceptionHandler(BadCredentialsException.class)
 	public ResponseEntity<RestErrorResponse> handle(BadCredentialsException exception) {
 		return builderFactory	.getErrorBuilder()
-								.withStatus(HttpStatus.NOT_FOUND)
+								.withStatus(HttpStatus.UNAUTHORIZED)
 								.withErrors(exception.getErrors())
 								.withMessage(exception.getMessage())
 								.build()
