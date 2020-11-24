@@ -31,11 +31,11 @@ public class FormResponseStorageAccessServiceImpl implements FormResponseStorage
         LOGGER.info("FormResponseStorage of formId '{}' is requested for access", formId);
         FormResponseAuthenticationResult authResult = authenticationService.authenticate(accessRequest);
         if(authResult.isAuthenticated()) {
-            LOGGER.info("Authentication Successfull for formId '{}'", formId);
+            LOGGER.info("Authentication Successful for formId '{}'", formId);
             return responseStorageService.getResponses(formId);
         } else {
             LOGGER.info("Authentication failed for formId '{}'", formId);
-            throw new BadCredentialsException("Incorrect Password");
+            throw new BadCredentialsException("Incorrect FormKey");
         }
     }
 }

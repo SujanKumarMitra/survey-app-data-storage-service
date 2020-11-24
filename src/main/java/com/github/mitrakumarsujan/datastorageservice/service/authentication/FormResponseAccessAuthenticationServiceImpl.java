@@ -29,7 +29,7 @@ public class FormResponseAccessAuthenticationServiceImpl implements FormResponse
             boolean result = isSame(actualKey, suppliedKey);
             return new FormResponseAuthenticationResultImpl(result, request);
         } catch (FormNotFoundException e) {
-            LOGGER.info("Authentication failed for formId '{}'. Reason='{}'", formId, e);
+            LOGGER.info("Authentication failed for formId '{}'. Reason='{}'", formId, e.toString());
             throw new BadCredentialsException("No form found with id='" + formId + "'");
         }
 

@@ -34,7 +34,7 @@ public class FormResponseResourceAccessServiceImpl implements FormResponseResour
             return resourceService.getFileResource(formId);
         } else {
             LOGGER.info("Authentication failed for formId '{}'", formId);
-            throw new BadCredentialsException("Incorrect Password");
+            throw new BadCredentialsException("Incorrect FormKey");
         }
     }
 }
