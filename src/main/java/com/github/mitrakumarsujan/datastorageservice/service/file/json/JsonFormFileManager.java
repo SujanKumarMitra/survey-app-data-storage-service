@@ -3,6 +3,7 @@ package com.github.mitrakumarsujan.datastorageservice.service.file.json;
 import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.github.mitrakumarsujan.datastorageservice.service.file.FileManagerHelper;
@@ -12,7 +13,7 @@ import com.github.mitrakumarsujan.datastorageservice.service.file.FormFileManage
  * @author Sujan Kumar Mitra
  * @since 2020-10-29
  */
-@Service("json-file-manager")
+@Component("json-file-manager")
 public class JsonFormFileManager implements FormFileManager {
 
 	@Autowired

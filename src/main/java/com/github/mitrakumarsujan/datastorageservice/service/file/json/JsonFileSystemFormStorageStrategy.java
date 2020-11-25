@@ -1,26 +1,25 @@
 package com.github.mitrakumarsujan.datastorageservice.service.file.json;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mitrakumarsujan.datastorageservice.service.FormStorageService;
 import com.github.mitrakumarsujan.datastorageservice.service.file.FileSystemFormResponseStorageStrategy;
 import com.github.mitrakumarsujan.datastorageservice.service.file.FormFileManager;
 import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author Sujan Kumar Mitra
  * @since 2020-10-27
  */
-@Component("json-form-storage-service")
+@Service("json-form-storage-service")
 public class JsonFileSystemFormStorageStrategy implements FormStorageService {
 
 	@Autowired
