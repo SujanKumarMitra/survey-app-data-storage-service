@@ -12,7 +12,7 @@
 	<artifactId>data-storage-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>data-storage-service</name>
-	<description>Data Storage Service for storing data of polls-app</description>
+	<description>Data Storage Service for storing data of survey-app</description>
 
 	<properties>
 		<java.version>11</java.version>
