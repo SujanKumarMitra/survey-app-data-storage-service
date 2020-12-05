@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.github.mitrakumarsujan.datastorageservice.configuration.UploadsConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.datastorageservice.configuration.ApplicationConfigurationProperties;
+import com.github.mitrakumarsujan.datastorageservice.configuration.ApplicationConfiguration;
 
 /**
  * @author Sujan Kumar Mitra
@@ -20,12 +21,12 @@ import com.github.mitrakumarsujan.datastorageservice.configuration.ApplicationCo
 public class FileManagerHelper {
 
 	@Autowired
-	private ApplicationConfigurationProperties properties;
+	private UploadsConfiguration uploadsConfig;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileManagerHelper.class);
 
 	public String getUploadBaseDirectory() {
-		return properties.getProperty("upload-directory");
+		return uploadsConfig.getBaseDir();
 	}
 
 	public Path getPath(String formId, String fileName) {

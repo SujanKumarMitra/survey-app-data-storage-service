@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+      uri: "http://config-server"
+
+eureka:
+  client:
+    service-url:
+      defaultZone: "http://localhost:8761/eureka"
+
+server:
+  port: 0
+
+app:
+  uploads:
+    base-dir: "${user.home}/Desktop"

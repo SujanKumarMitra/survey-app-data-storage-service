@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: "data-storage-service"
+  profiles:
+    active: "dev"
