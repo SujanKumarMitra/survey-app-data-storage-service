@@ -9,6 +9,7 @@ import com.github.mitrakumarsujan.datastorageservice.configuration.UploadsConfig
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import com.github.mitrakumarsujan.datastorageservice.configuration.ApplicationConfiguration;
@@ -18,6 +19,7 @@ import com.github.mitrakumarsujan.datastorageservice.configuration.ApplicationCo
  * @since 2020-10-29
  */
 @Component
+@RefreshScope
 public class FileManagerHelper {
 
 	@Autowired

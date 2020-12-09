@@ -1,17 +1,6 @@
 package com.github.mitrakumarsujan.datastorageservice.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
-import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
-import java.util.Collections;
-import java.util.Map;
-import java.util.function.Supplier;
-
-
-
-
 
 /**
  * @author Sujan Kumar Mitra
@@ -20,15 +9,14 @@ import java.util.function.Supplier;
 @ConfigurationProperties(prefix = "app.uploads")
 public class UploadsConfiguration {
 
-    private final String baseDir;
-
-    @ConstructorBinding
-    public UploadsConfiguration(String baseDir) {
-        this.baseDir = baseDir;
-    }
+    private String baseDir;
 
     public String getBaseDir() {
         return baseDir;
+    }
+
+    public void setBaseDir(String baseDir) {
+        this.baseDir = baseDir;
     }
 
     @Override
@@ -37,4 +25,5 @@ public class UploadsConfiguration {
                 "baseDir='" + baseDir + '\'' +
                 '}';
     }
+
 }
