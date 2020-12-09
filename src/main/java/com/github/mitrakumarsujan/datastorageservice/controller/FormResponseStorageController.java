@@ -3,6 +3,7 @@ package com.github.mitrakumarsujan.datastorageservice.controller;
 import com.github.mitrakumarsujan.datastorageservice.service.authentication.access.FormResponseStorageAccessService;
 import com.github.mitrakumarsujan.datastorageservice.service.authentication.FormResponseAccessRequestBuilder;
 import com.github.mitrakumarsujan.formmodel.model.dto.FormResponseAccessRequest;
+import com.github.mitrakumarsujan.formmodel.model.restresponse.SuccessMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -40,12 +41,12 @@ public class FormResponseStorageController {
     private FormResponseCollectionDtoConverter dtoConverter;
 
     @PostMapping
-    public ResponseEntity<RestSuccessResponse<FormResponse>> saveForm(
+    public ResponseEntity<RestSuccessResponse<SuccessMessage>> saveFormResponse(
             @RequestBody FormResponse formResponse) {
 
         FormResponse savedForm = responseStorageService.save(formResponse);
-        return responseBuilderFactory.getSingleDataBuilder(FormResponse.class)
-                                     .withData(savedForm)
+        return responseBuilderFactory.getSingleDataBuilder(SuccessMessage.class)
+                                     .withData(new SuccessMessage("response successfully saved"))
                                      .withStatus(HttpStatus.CREATED)
                                      .build()
                                      .toResponseEntity();
