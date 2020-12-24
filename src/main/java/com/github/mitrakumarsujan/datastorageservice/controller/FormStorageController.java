@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 public class FormStorageController {
 
 	@Autowired
-	@Qualifier("db-based-form-storage-service")
 	private FormStorageService service;
 
 	@Autowired

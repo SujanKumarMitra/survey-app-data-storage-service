@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 public class FormResponseAccessAuthenticationServiceImpl implements FormResponseAccessAuthenticationService {
 
     @Autowired
-    @Qualifier("db-based-form-storage-service")
     private FormStorageService formStorageService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FormResponseAccessAuthenticationServiceImpl.class);

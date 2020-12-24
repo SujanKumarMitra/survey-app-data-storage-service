@@ -18,6 +18,7 @@ server:
   port: 0
 
 app:
+  storage-strategy: "file"
   uploads:
     base-dir: "${user.home}/Desktop"
 

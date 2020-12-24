@@ -19,7 +19,6 @@ public class FormResponseStorageAccessServiceImpl implements FormResponseStorage
     private FormResponseAccessAuthenticationService authenticationService;
 
     @Autowired
-    @Qualifier("db-response-storage")
     private FormResponseStorageService responseStorageService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FormResponseStorageAccessService.class);

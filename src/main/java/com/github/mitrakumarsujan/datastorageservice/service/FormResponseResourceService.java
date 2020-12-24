@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.datastorageservice.service.file;
+package com.github.mitrakumarsujan.datastorageservice.service;
 
 import org.springframework.core.io.Resource;
 

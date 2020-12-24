@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -20,7 +21,8 @@ import java.io.IOException;
  * @since 2020-10-27
  */
 @Service("json-form-storage-service")
-public class JsonFileSystemFormStorageStrategy implements FormStorageService {
+@ConditionalOnProperty(prefix = "app", name = "storage-strategy", havingValue = "file")
+public class JsonFileSystemFormStorageService implements FormStorageService {
 
 	@Autowired
 	private ObjectMapper mapper;
@@ -30,10 +32,10 @@ public class JsonFileSystemFormStorageStrategy implements FormStorageService {
 	private FormFileManager fileManager;
 	
 	@Autowired
-	@Qualifier("csv-response-storage")
+//	@Qualifier("csv-response-storage")
 	private FormResponseStorageService responseStorageStrategy;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(JsonFileSystemFormStorageStrategy.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JsonFileSystemFormStorageService.class);
 
 	@Override
 	public Form save(Form form) {

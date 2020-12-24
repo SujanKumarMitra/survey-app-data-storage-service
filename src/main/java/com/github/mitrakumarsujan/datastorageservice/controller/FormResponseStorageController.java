@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 public class FormResponseStorageController {
 
     @Autowired
-    @Qualifier("db-response-storage")
     private FormResponseStorageService responseStorageService;
 
     @Autowired

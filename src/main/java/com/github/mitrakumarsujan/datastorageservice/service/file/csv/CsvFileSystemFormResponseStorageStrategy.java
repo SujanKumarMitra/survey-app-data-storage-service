@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -35,6 +36,7 @@ import static java.util.stream.Collectors.toCollection;
  * @since 2020-10-29
  */
 @Service("csv-response-storage")
+@ConditionalOnProperty(prefix = "app", name = "storage-strategy", havingValue = "file")
 public class CsvFileSystemFormResponseStorageStrategy implements FormResponseStorageService {
 
 	@Autowired
