@@ -1,10 +1,5 @@
 package com.github.mitrakumarsujan.datastorageservice.service.file;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import com.github.mitrakumarsujan.datastorageservice.configuration.UploadsConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
-import com.github.mitrakumarsujan.datastorageservice.configuration.ApplicationConfiguration;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * @author Sujan Kumar Mitra

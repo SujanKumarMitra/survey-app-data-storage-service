@@ -1,14 +1,13 @@
 package com.github.mitrakumarsujan.datastorageservice.service;
 
-import static java.util.stream.Collectors.toCollection;
+import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-import org.springframework.stereotype.Component;
-
-import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
+import static java.util.stream.Collectors.toCollection;
 
 /**
  * @author Sujan Kumar Mitra
