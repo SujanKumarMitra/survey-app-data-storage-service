@@ -1,8 +1,8 @@
 package com.github.mitrakumarsujan.datastorageservice.service.file.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mitrakumarsujan.datastorageservice.service.FormResponseStorageService;
 import com.github.mitrakumarsujan.datastorageservice.service.FormStorageService;
-import com.github.mitrakumarsujan.datastorageservice.service.file.FileSystemFormResponseStorageStrategy;
 import com.github.mitrakumarsujan.datastorageservice.service.file.FormFileManager;
 import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
@@ -31,7 +31,7 @@ public class JsonFileSystemFormStorageStrategy implements FormStorageService {
 	
 	@Autowired
 	@Qualifier("csv-response-storage")
-	private FileSystemFormResponseStorageStrategy responseStorageStrategy;
+	private FormResponseStorageService responseStorageStrategy;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JsonFileSystemFormStorageStrategy.class);
 

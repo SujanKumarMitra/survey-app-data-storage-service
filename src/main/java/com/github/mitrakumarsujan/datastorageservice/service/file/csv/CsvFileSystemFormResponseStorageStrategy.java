@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.github.mitrakumarsujan.datastorageservice.service.FormResponseStorageService;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -21,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.github.mitrakumarsujan.datastorageservice.service.file.FileSystemFormResponseStorageStrategy;
 import com.github.mitrakumarsujan.datastorageservice.service.file.FileWriterService;
 import com.github.mitrakumarsujan.datastorageservice.service.file.FormResponseFileManager;
 import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
@@ -36,7 +36,7 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponseColle
  * @since 2020-10-29
  */
 @Service("csv-response-storage")
-public class CsvFileSystemFormResponseStorageStrategy implements FileSystemFormResponseStorageStrategy {
+public class CsvFileSystemFormResponseStorageStrategy implements FormResponseStorageService {
 
 	@Autowired
 	private FormTemplateCsvHeaderMapper headerMapper;
