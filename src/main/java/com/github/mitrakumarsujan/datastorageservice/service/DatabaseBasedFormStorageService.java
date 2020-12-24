@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
+
+import static java.text.MessageFormat.format;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
@@ -24,10 +27,13 @@ public class DatabaseBasedFormStorageService implements FormStorageService {
 
     @Override
     public Form find(String formId) throws FormNotFoundException {
-        return mongoTemplate.findOne(
+        MongoDbEntityForm form = mongoTemplate.findOne(
                 query(
                         where("_id")
-                        .is(formId)
-                ),MongoDbEntityForm.class);
+                                .is(formId)
+                ), MongoDbEntityForm.class);
+        if(form == null)
+            throw new FormNotFoundException(format("form not found for id [{0}]",formId));
+        return form;
     }
 }

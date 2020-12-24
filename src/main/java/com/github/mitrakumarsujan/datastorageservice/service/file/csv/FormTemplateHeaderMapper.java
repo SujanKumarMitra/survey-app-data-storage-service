@@ -16,7 +16,7 @@ import com.github.mitrakumarsujan.formmodel.model.form.FormTemplate;
  * @since 2020-10-29
  */
 @Component
-public class FormTemplateCsvHeaderMapper implements Function<FormTemplate, List<String>> {
+public class FormTemplateHeaderMapper implements Function<FormTemplate, List<String>> {
 
 	@Override
 	public List<String> apply(FormTemplate t) {

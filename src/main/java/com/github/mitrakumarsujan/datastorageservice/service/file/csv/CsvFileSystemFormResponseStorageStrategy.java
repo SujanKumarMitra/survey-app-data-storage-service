@@ -39,10 +39,10 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponseColle
 public class CsvFileSystemFormResponseStorageStrategy implements FormResponseStorageService {
 
 	@Autowired
-	private FormTemplateCsvHeaderMapper headerMapper;
+	private FormTemplateHeaderMapper headerMapper;
 
 	@Autowired
-	private FormResponseCsvRowMapper rowMapper;
+	private FormResponseRowMapper rowMapper;
 
 	@Autowired
 	@Qualifier("csv-response-manager")

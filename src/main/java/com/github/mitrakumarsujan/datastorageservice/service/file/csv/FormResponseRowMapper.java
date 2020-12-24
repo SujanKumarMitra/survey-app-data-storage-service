@@ -15,7 +15,7 @@ import com.github.mitrakumarsujan.formmodel.model.formresponse.Response;
  * @since 2020-10-29
  */
 @Component
-public class FormResponseCsvRowMapper implements Function<List<Response>, List<String>> {
+public class FormResponseRowMapper implements Function<List<Response>, List<String>> {
 
 	@Override
 	public List<String> apply(List<Response> responses) {
