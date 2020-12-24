@@ -1,5 +1,6 @@
 package com.github.mitrakumarsujan.datastorageservice.controller;
 
+import com.github.mitrakumarsujan.formmodel.model.restresponse.SuccessMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -34,11 +35,10 @@ public class FormStorageController {
 	private RestSuccessResponseBuilderFactory responseBuilderFactory;
 
 	@PostMapping
-	public ResponseEntity<RestSuccessResponse<Form>> saveForm(@RequestBody Form form) {
-		Form savedForm = service.save(form);
-
-		return responseBuilderFactory	.getSingleDataBuilder(Form.class)
-										.withData(savedForm)
+	public ResponseEntity<RestSuccessResponse<SuccessMessage>> saveForm(@RequestBody Form form) {
+		service.save(form);
+		return responseBuilderFactory	.getSingleDataBuilder(SuccessMessage.class)
+										.withData(new SuccessMessage("form saved successfully"))
 										.withStatus(HttpStatus.CREATED)
 										.build()
 										.toResponseEntity();

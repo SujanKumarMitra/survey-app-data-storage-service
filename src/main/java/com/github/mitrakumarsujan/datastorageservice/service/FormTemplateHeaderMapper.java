@@ -1,4 +1,4 @@
-package com.github.mitrakumarsujan.datastorageservice.service.file.csv;
+package com.github.mitrakumarsujan.datastorageservice.service;
 
 import static java.util.stream.Collectors.toCollection;
 

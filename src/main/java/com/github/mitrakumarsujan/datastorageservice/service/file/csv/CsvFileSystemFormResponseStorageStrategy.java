@@ -10,9 +10,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
+import com.github.mitrakumarsujan.datastorageservice.service.FormResponseRowMapper;
 import com.github.mitrakumarsujan.datastorageservice.service.FormResponseStorageService;
+import com.github.mitrakumarsujan.datastorageservice.service.FormTemplateHeaderMapper;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -67,24 +68,6 @@ public class CsvFileSystemFormResponseStorageStrategy implements FormResponseSto
 		return response;
 	}
 
-	@Override
-	public List<FormResponse> saveAll(List<FormResponse> responses) {
-		Map<String, List<FormResponse>> responseMap = responses	.stream()
-																.collect(groupingBy(FormResponse::getFormId));
-
-		responseMap.forEach(this::writeResponseList);
-		return responses;
-	}
-
-	private void writeResponseList(String formId, List<FormResponse> responseList) {
-		File file = fileManager.getFile(formId);
-		String data = responseList	.stream()
-									.map(this::prepareWritableData)
-									.collect(joining(NEW_LINE));
-		fileWriter.appendData(data, file);
-		LOGGER.info("responses written to file '{}'", file.getAbsolutePath());
-	}
-
 	private CharSequence prepareWritableData(FormResponse response) {
 		LocalDateTime timestamp = response.getTimestamp();
 		List<String> responses = rowMapper.apply(response.getResponses());
@@ -107,7 +90,7 @@ public class CsvFileSystemFormResponseStorageStrategy implements FormResponseSto
 		File file = fileManager.getFile(formId);
 
 		fileWriter.appendData(data, file);
-		LOGGER.info("response storage initated for formId '{}'", formId);
+		LOGGER.info("response storage initiated for formId '{}'", formId);
 	}
 
 	private CharSequence getWritableData(List<String> data) {
@@ -116,7 +99,7 @@ public class CsvFileSystemFormResponseStorageStrategy implements FormResponseSto
 	}
 
 	@Override
-	public FormResponseCollection getResponses(String formId) {
+	public FormResponseCollection getResponses(String formId) throws FormNotFoundException {
 		File file = fileManager.getFile(formId);
 
 		CSVFormat format = CSVFormat.RFC4180

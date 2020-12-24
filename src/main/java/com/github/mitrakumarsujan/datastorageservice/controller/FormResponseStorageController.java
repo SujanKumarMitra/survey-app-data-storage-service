@@ -28,7 +28,7 @@ import com.github.mitrakumarsujan.formmodel.model.restresponse.success.RestSucce
 public class FormResponseStorageController {
 
     @Autowired
-    @Qualifier("csv-response-storage")
+    @Qualifier("db-response-storage")
     private FormResponseStorageService responseStorageService;
 
     @Autowired

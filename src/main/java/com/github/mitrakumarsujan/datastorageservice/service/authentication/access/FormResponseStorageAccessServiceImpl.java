@@ -18,9 +18,8 @@ public class FormResponseStorageAccessServiceImpl implements FormResponseStorage
     @Autowired
     private FormResponseAccessAuthenticationService authenticationService;
 
-
     @Autowired
-    @Qualifier("csv-response-storage")
+    @Qualifier("db-response-storage")
     private FormResponseStorageService responseStorageService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FormResponseStorageAccessService.class);
