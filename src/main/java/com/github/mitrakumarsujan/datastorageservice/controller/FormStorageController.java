@@ -27,7 +27,7 @@ import com.github.mitrakumarsujan.formmodel.model.restresponse.success.RestSucce
 public class FormStorageController {
 
 	@Autowired
-	@Qualifier("json-form-storage-service")
+	@Qualifier("db-based-form-storage-service")
 	private FormStorageService service;
 
 	@Autowired

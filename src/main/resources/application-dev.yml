@@ -4,7 +4,11 @@ spring:
       discovery:
         enabled: true
         service-id: "config-server"
-
+  data:
+    mongodb:
+      host: "localhost"
+      port: 27017
+      database: "survey_app"
 eureka:
   client:
     service-url:

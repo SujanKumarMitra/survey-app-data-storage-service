@@ -8,12 +8,14 @@ import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FormResponseAccessAuthenticationServiceImpl implements FormResponseAccessAuthenticationService {
 
     @Autowired
+    @Qualifier("db-based-form-storage-service")
     private FormStorageService formStorageService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FormResponseAccessAuthenticationServiceImpl.class);

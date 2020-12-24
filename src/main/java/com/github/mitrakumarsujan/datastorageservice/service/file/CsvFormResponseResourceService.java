@@ -21,9 +21,6 @@ import com.github.mitrakumarsujan.formmodel.model.form.Form;
 public class CsvFormResponseResourceService implements FormResponseResourceService {
 
 	@Autowired
-	private FormStorageService formStorageService;
-
-	@Autowired
 	@Qualifier("csv-response-manager")
 	private FormResponseFileManager fileManager;
 
