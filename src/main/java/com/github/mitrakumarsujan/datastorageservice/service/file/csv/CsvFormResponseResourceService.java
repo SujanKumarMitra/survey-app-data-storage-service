@@ -4,6 +4,7 @@ import com.github.mitrakumarsujan.datastorageservice.service.FormResponseResourc
 import com.github.mitrakumarsujan.datastorageservice.service.file.FormResponseFileManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,10 @@ import java.io.File;
  * @since 2020-11-08
  */
 @Service("csv-form-response-resource")
+@ConditionalOnProperty(prefix = "app", name = "storage-strategy", havingValue = "file")
 public class CsvFormResponseResourceService implements FormResponseResourceService {
 
 	@Autowired
-	@Qualifier("csv-response-manager")
 	private FormResponseFileManager fileManager;
 
 	@Override

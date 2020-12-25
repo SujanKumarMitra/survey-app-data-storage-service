@@ -16,19 +16,29 @@ import java.io.PrintWriter;
 @Service
 public class FileWriterServiceImpl implements FileWriterService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(FileWriterServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileWriterServiceImpl.class);
 
-	@Override
-	public void appendData(CharSequence data, File file) {
-		file.setWritable(true);
-		try (PrintWriter writer = new PrintWriter(new FileWriter(file, true))) {
-			writer.print(data);
-			writer.println();
-			writer.flush();
-			LOGGER.info("writing complete in file '{}'", file.getAbsolutePath());
-		} catch (IOException e) {
-			LOGGER.error("Writing failed in '{}'. Reason:: {}", file.getAbsolutePath(), e.getMessage());
-		}
-	}
+    @Override
+    public void appendData(CharSequence data, File file) {
+        writeToFile(data, file, true);
+    }
+
+    @Override
+    public void writeData(CharSequence data, File file) {
+        writeToFile(data, file, false);
+    }
+
+    private void writeToFile(CharSequence data, File file, boolean append) {
+        file.setWritable(true);
+        try (PrintWriter writer = new PrintWriter(new FileWriter(file, append))) {
+            writer.print(data);
+            writer.println();
+            writer.flush();
+            LOGGER.info("writing complete in file '{}'", file.getAbsolutePath());
+        } catch (IOException e) {
+            LOGGER.error("Writing failed in '{}'. Reason:: {}", file.getAbsolutePath(), e.getMessage());
+        }
+    }
+
 
 }

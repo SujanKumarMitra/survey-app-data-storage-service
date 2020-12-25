@@ -7,7 +7,9 @@ import java.io.File;
  * @since 2020-10-31
  */
 public interface FileWriterService {
-	
-	public void appendData(CharSequence data, File file);
+
+	void writeData(CharSequence data, File file);
+
+	void appendData(CharSequence data, File file);
 	
 }

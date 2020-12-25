@@ -19,7 +19,6 @@ public class FormResponseResourceAccessServiceImpl implements FormResponseResour
     private FormResponseAccessAuthenticationService authenticationService;
 
     @Autowired
-    @Qualifier("csv-form-response-resource")
     private FormResponseResourceService resourceService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FormResponseResourceAccessServiceImpl.class);
