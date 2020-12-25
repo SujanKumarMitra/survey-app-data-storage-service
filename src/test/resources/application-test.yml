@@ -1,0 +1,14 @@
+spring:
+  data:
+    mongodb:
+      host: "localhost"
+      port: 27017
+      database: "survey_app_test"
+
+server:
+  port: 0
+
+app:
+  storage-strategy: "file"
+  uploads:
+    base-dir: "${user.home}/Desktop"
