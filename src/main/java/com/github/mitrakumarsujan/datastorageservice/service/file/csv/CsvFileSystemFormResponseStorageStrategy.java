@@ -11,6 +11,7 @@ import com.github.mitrakumarsujan.formmodel.model.form.FormTemplate;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponseCollection;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponseCollectionImpl;
+import com.github.mitrakumarsujan.formmodel.model.formresponse.ResponseConstants;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -104,7 +105,7 @@ public class CsvFileSystemFormResponseStorageStrategy implements FormResponseSto
 
 		CSVFormat format = CSVFormat.RFC4180
 									.withFirstRecordAsHeader()
-									.withNullString("")
+									.withNullString(ResponseConstants.DEFAULT_VALUE)
 									.withTrim();
 		try (CSVParser parser = format.parse(new FileReader(file))) {
 			FormResponseCollectionImpl responseCollection = new FormResponseCollectionImpl();
