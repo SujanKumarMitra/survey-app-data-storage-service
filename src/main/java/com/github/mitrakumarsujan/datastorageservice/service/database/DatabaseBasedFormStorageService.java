@@ -23,7 +23,6 @@ public class DatabaseBasedFormStorageService implements FormStorageService {
     private MongoTemplate mongoTemplate;
 
     @Autowired
-//    @Qualifier("db-response-storage")
     private FormResponseStorageService responseStorageStrategy;
 
     @Override

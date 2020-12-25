@@ -8,6 +8,7 @@ import com.github.mitrakumarsujan.formmodel.exception.FormNotFoundException;
 import com.github.mitrakumarsujan.formmodel.model.form.Form;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponse;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponseCollection;
+import com.github.mitrakumarsujan.formmodel.model.formresponse.ResponseConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -72,7 +73,12 @@ public class DatabaseBasedFormResponseStorageService implements FormResponseStor
 
     private List<String> prepareResponses(FormResponse response) {
         List<String> responses = rowMapper.apply(response.getResponses());
+        responses.replaceAll(this::replaceDefaultResponse);
         responses.add(0, response.getTimestamp().toString());
         return responses;
+    }
+
+    private String replaceDefaultResponse(String s) {
+        return s.equals(ResponseConstants.DEFAULT_VALUE) ? null : s;
     }
 }

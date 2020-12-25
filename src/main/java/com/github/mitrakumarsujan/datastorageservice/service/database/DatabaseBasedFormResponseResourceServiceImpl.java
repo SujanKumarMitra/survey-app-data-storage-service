@@ -5,6 +5,7 @@ import com.github.mitrakumarsujan.datastorageservice.service.FormResponseStorage
 import com.github.mitrakumarsujan.datastorageservice.service.file.FileWriterService;
 import com.github.mitrakumarsujan.datastorageservice.service.file.FormResponseFileManager;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponseCollection;
+import com.github.mitrakumarsujan.formmodel.model.formresponse.ResponseConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.io.FileSystemResource;
@@ -58,7 +59,12 @@ public class DatabaseBasedFormResponseResourceServiceImpl implements FormRespons
     private String getCsvRow(List<String> response) {
         return response
                 .stream()
+                .map(this::replaceNullWithEmptyString)
                 .collect(joining(","));
+    }
+
+    private String replaceNullWithEmptyString(String s) {
+        return s == null ? "" : s;
     }
 
     private String getCsvRows(List<List<String>> responses) {
