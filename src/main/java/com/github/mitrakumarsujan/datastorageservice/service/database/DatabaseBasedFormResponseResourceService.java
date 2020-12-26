@@ -5,7 +5,8 @@ import com.github.mitrakumarsujan.datastorageservice.service.FormResponseStorage
 import com.github.mitrakumarsujan.datastorageservice.service.file.FileWriterService;
 import com.github.mitrakumarsujan.datastorageservice.service.file.FormResponseFileManager;
 import com.github.mitrakumarsujan.formmodel.model.formresponse.FormResponseCollection;
-import com.github.mitrakumarsujan.formmodel.model.formresponse.ResponseConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.io.FileSystemResource;
@@ -21,14 +22,13 @@ import static java.util.stream.Collectors.joining;
 
 @Service
 @ConditionalOnProperty(prefix = "app", name = "storage-strategy", havingValue = "database")
-public class DatabaseBasedFormResponseResourceServiceImpl implements FormResponseResourceService {
+public class DatabaseBasedFormResponseResourceService implements FormResponseResourceService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseBasedFormResponseResourceService.class);
     @Autowired
     private FormResponseStorageService responseStorageService;
-
     @Autowired
     private FormResponseFileManager fileManager;
-
     @Autowired
     private FileWriterService writer;
 
@@ -38,14 +38,17 @@ public class DatabaseBasedFormResponseResourceServiceImpl implements FormRespons
         fileManager.createFile(formId);
         File file = fileManager.getFile(formId);
 
+        LOGGER.info("starting to write responses for formId {} in {}", formId, file.getAbsolutePath());
+
         String csvHeaders = getCsvHeaders(responses.getQuestions());
         String csvRows = getCsvRows(responses.getResponses());
         String data = new StringJoiner(lineSeparator())
                 .add(csvHeaders)
                 .add(csvRows)
                 .toString();
-        writer.writeData(data,file);
+        writer.writeData(data, file);
 
+        LOGGER.info("responses written for formId in {}", formId, file.getAbsolutePath());
         return new FileSystemResource(file);
     }
 
@@ -59,6 +62,7 @@ public class DatabaseBasedFormResponseResourceServiceImpl implements FormRespons
     private String getCsvRow(List<String> response) {
         return response
                 .stream()
+                .sequential()
                 .map(this::replaceNullWithEmptyString)
                 .collect(joining(","));
     }
